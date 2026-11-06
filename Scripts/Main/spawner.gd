@@ -9,8 +9,8 @@ const FLYER_CHANCE := 0.45
 const PLAYER_TARGET_CHANCE := 0.35
 const SPAWN_X: Array[float] = [-16.0, 336.0]
 
-@export var walker_scene: PackedScene
-@export var flyer_scene: PackedScene
+@export var walker_scene: PackedScene  
+@export var flyer_scene: PackedScene 
 
 var _side_counts: Array[int] = [0, 0]
 var _interval := SPAWN_INTERVAL_START
@@ -34,10 +34,14 @@ func _spawn() -> void:
 		return
 	var side := _pick_side()
 	var use_flyer := Favour.unlocked_tiers > 0 and randf() < FLYER_CHANCE
+	var lane := 0
+	if use_flyer:
+		lane = randi() % Favour.unlocked_tiers
+		if Flyer.is_queue_full(side, lane):
+			use_flyer = false
 	var enemy: Enemy = (flyer_scene if use_flyer else walker_scene).instantiate()
 	var spawn_y := Tiers.stand_center_y(Tiers.GROUND_SURFACE_Y, Tiers.WALKER_HALF_H)
 	if use_flyer:
-		var lane := randi() % Favour.unlocked_tiers
 		enemy.set(&"lane", lane)
 		spawn_y = Tiers.lane_y(lane)
 	if randf() < PLAYER_TARGET_CHANCE:

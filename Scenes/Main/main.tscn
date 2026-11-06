@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://dipd0ysa7t77y"]
 
-[ext_resource type="Script" path="res://Scripts/Main/main.gd" id="1_main"]
-[ext_resource type="Script" path="res://Scripts/Main/spawner.gd" id="2_spawner"]
+[ext_resource type="Script" uid="uid://dp5xpu722j3dj" path="res://Scripts/Main/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://cpbhueuma0qho" path="res://Scripts/Main/spawner.gd" id="2_spawner"]
 [ext_resource type="PackedScene" path="res://Scenes/Shrine/shrine.tscn" id="3_shrine"]
 [ext_resource type="PackedScene" path="res://Scenes/Player/player.tscn" id="4_player"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/walker.tscn" id="5_walker"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemy/flyer.tscn" id="6_flyer"]
+[ext_resource type="PackedScene" uid="uid://bflcvjcqcytl0" path="res://Scenes/Enemy/flyer.tscn" id="6_flyer"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/hud.tscn" id="7_hud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
@@ -14,52 +14,51 @@ size = Vector2(448, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(8, 240)
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=2003014098]
 script = ExtResource("1_main")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=538299392]
 offset_right = 320.0
 offset_bottom = 180.0
 color = Color(0, 0, 0, 1)
 
-[node name="Ground" type="StaticBody2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="." unique_id=1583839113]
 position = Vector2(160, 160)
-collision_layer = 1
 collision_mask = 0
 
-[node name="Visual" type="ColorRect" parent="Ground"]
+[node name="Visual" type="ColorRect" parent="Ground" unique_id=1320622178]
 offset_left = -224.0
 offset_right = 224.0
 offset_bottom = 20.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=75520690]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_ground")
 
-[node name="LeftWall" type="StaticBody2D" parent="."]
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1405379852]
 position = Vector2(-4, 60)
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1245135475]
 shape = SubResource("RectangleShape2D_wall")
 
-[node name="RightWall" type="StaticBody2D" parent="."]
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=897523410]
 position = Vector2(324, 60)
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=608363856]
 shape = SubResource("RectangleShape2D_wall")
 
-[node name="Shrine" parent="." instance=ExtResource("3_shrine")]
+[node name="Shrine" parent="." unique_id=77188051 instance=ExtResource("3_shrine")]
 
-[node name="Spawner" type="Node2D" parent="."]
+[node name="Spawner" type="Node2D" parent="." unique_id=1608933620]
 script = ExtResource("2_spawner")
 walker_scene = ExtResource("5_walker")
 flyer_scene = ExtResource("6_flyer")
 
-[node name="Player" parent="." instance=ExtResource("4_player")]
+[node name="Player" parent="." unique_id=819642984 instance=ExtResource("4_player")]
 position = Vector2(112, 152)
 
-[node name="Hud" parent="." instance=ExtResource("7_hud")]
+[node name="Hud" parent="." unique_id=1557613905 instance=ExtResource("7_hud")]

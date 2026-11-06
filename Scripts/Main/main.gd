@@ -3,9 +3,11 @@ extends Node2D
 @onready var shrine_health: HealthComponent = $Shrine/HealthComponent
 @onready var player_health: HealthComponent = $Player/HealthComponent
 @onready var hud := $Hud
+#@onready var enemy := $enemyPath
 
 func _ready() -> void:
 	Favour.reset()
+	Flyer.reset_queues() #new 06.11.2026
 	shrine_health.health_changed.connect(hud.set_shrine_health)
 	player_health.health_changed.connect(hud.set_player_health)
 	shrine_health.died.connect(_on_run_ended.bind("THE SHRINE HAS FALLEN"))

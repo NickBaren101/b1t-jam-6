@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://bflcvjcqcytl0"]
 
-[ext_resource type="Script" path="res://Scripts/Enemy/flyer.gd" id="1_flyer"]
-[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_health"]
-[ext_resource type="PackedScene" path="res://Scenes/Bullet/enemy_projectile.tscn" id="3_projectile"]
+[ext_resource type="Script" uid="uid://c2dy7lx2q5bsl" path="res://Scripts/Enemy/flyer.gd" id="1_flyer"]
+[ext_resource type="PackedScene" uid="uid://cft1f0vhlc4wg" path="res://Scenes/Enemy/enemy_projectile.tscn" id="2_7dfxh"]
+[ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="2_health"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_flyer"]
 size = Vector2(10, 8)
@@ -10,29 +10,33 @@ size = Vector2(10, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_flyer_hit"]
 size = Vector2(14, 12)
 
-[node name="Flyer" type="CharacterBody2D" groups=["enemies", "flyers"]]
+[node name="Flyer" type="CharacterBody2D" unique_id=530900578 groups=["enemies"]]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_flyer")
-projectile_scene = ExtResource("3_projectile")
+projectile_scene = ExtResource("2_7dfxh")
 speed = 55.0
 
-[node name="Visual" type="ColorRect" parent="."]
+[node name="Visual" type="ColorRect" parent="." unique_id=567699784]
 offset_left = -5.0
 offset_top = -4.0
 offset_right = 5.0
 offset_bottom = 4.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1904417576]
 shape = SubResource("RectangleShape2D_flyer")
 
-[node name="ContactHitbox" type="Area2D" parent="."]
+[node name="ContactHitbox" type="Area2D" parent="." unique_id=1158001587]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox" unique_id=665622404]
 shape = SubResource("RectangleShape2D_flyer_hit")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="AimRay" type="RayCast2D" parent="."]
+visible = false
+enabled = false
+collision_mask = 2
+
+[node name="HealthComponent" type="Node" parent="." unique_id=2049867780]
 script = ExtResource("2_health")
-max_health = 1

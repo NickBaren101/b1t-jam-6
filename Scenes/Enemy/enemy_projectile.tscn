@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bjw1bcchsakif" path="res://Scripts/Enemy/enemy_projectile.gd" id="1_ffu00"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ffu00"]
+radius = 2.0
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5goq7"]
 

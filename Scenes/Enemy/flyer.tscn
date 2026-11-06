@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/flyer.gd" id="1_flyer"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_health"]
+[ext_resource type="PackedScene" path="res://Scenes/Bullet/enemy_projectile.tscn" id="3_projectile"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_flyer"]
 size = Vector2(10, 8)
@@ -9,10 +10,11 @@ size = Vector2(10, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_flyer_hit"]
 size = Vector2(14, 12)
 
-[node name="Flyer" type="CharacterBody2D" groups=["enemies"]]
+[node name="Flyer" type="CharacterBody2D" groups=["enemies", "flyers"]]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_flyer")
+projectile_scene = ExtResource("3_projectile")
 speed = 55.0
 
 [node name="Visual" type="ColorRect" parent="."]
@@ -26,7 +28,7 @@ shape = SubResource("RectangleShape2D_flyer")
 
 [node name="ContactHitbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 34
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]
 shape = SubResource("RectangleShape2D_flyer_hit")

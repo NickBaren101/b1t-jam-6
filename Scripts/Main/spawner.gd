@@ -6,7 +6,6 @@ const SPAWN_INTERVAL_DECAY := 0.97
 const BALANCE_DEADBAND := 2
 const MAX_ALIVE := 24
 const FLYER_CHANCE := 0.45
-const PLAYER_TARGET_CHANCE := 0.35
 const SPAWN_X: Array[float] = [-16.0, 336.0]
 
 @export var walker_scene: PackedScene
@@ -40,8 +39,6 @@ func _spawn() -> void:
 		var lane := randi() % Favour.unlocked_tiers
 		enemy.set(&"lane", lane)
 		spawn_y = Tiers.lane_y(lane)
-	if randf() < PLAYER_TARGET_CHANCE:
-		enemy.target = Enemy.Target.PLAYER
 	enemy.tree_exited.connect(_on_enemy_gone.bind(side))
 	_side_counts[side] += 1
 	add_child(enemy)

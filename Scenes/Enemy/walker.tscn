@@ -24,11 +24,11 @@ offset_bottom = 6.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_walker")
 
-[node name="ContactHitbox" type="Area2D" parent="."]
+[node name="MeleeRange" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 34
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 shape = SubResource("RectangleShape2D_walker_hit")
 
 [node name="HealthComponent" type="Node" parent="."]

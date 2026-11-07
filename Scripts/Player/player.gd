@@ -5,9 +5,9 @@ const SHOOT_COOLDOWN := 0.35
 const INVULN_DURATION := 0.8
 const FLICKER_INTERVAL := 0.08
 
-# --- Jump: gravity and jump speed are derived from OVERSHOOT and FALL_TIME ---
+# --- Jump: gravity and jump speed are derived from OVERSHOOT and APEX_TIME ---
 const OVERSHOOT := 10.0       # px the feet end up ABOVE the platform surface at the apex
-const FALL_TIME := 0.35       # s from the apex down to the platform surface
+const APEX_TIME := 0.3        # s from takeoff to the apex (lower = snappier jump)
 const MAX_FALL_SPEED := 300.0
 const AIR_ACCEL := 40.0       # px/s², only slight steering in the air
 const AIR_SHOTS := 1          # shots allowed while airborne
@@ -35,8 +35,9 @@ var _invuln_timer := 0.0
 
 func _ready() -> void:
 	var rise := Tiers.GROUND_SURFACE_Y - Tiers.SURFACE_Y[0]  # 42 px between platform levels
-	_gravity = 2.0 * OVERSHOOT / (FALL_TIME * FALL_TIME)
-	_jump_speed = sqrt(2.0 * _gravity * (rise + OVERSHOOT))
+	var height := rise + OVERSHOOT
+	_gravity = 2.0 * height / (APEX_TIME * APEX_TIME)
+	_jump_speed = 2.0 * height / APEX_TIME
 
 func _physics_process(delta: float) -> void:
 	_tick_timers(delta)

@@ -1,20 +1,20 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://b4dlkqfsvly5"]
 
-[ext_resource type="Script" path="res://Scripts/Bullet/bullet.gd" id="1_bullet"]
+[ext_resource type="Script" uid="uid://ci1e30wrfi4n7" path="res://Scripts/Bullet/bullet.gd" id="1_bullet"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bullet"]
 size = Vector2(4, 4)
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="Area2D" unique_id=259066310]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_bullet")
 
-[node name="Visual" type="ColorRect" parent="."]
+[node name="Visual" type="ColorRect" parent="." unique_id=1201643041]
 offset_left = -2.0
 offset_top = -2.0
 offset_right = 2.0
 offset_bottom = 2.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2129897776]
 shape = SubResource("RectangleShape2D_bullet")

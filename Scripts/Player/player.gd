@@ -58,7 +58,7 @@ func _motion(delta: float) -> void:
 
 	if is_on_floor():
 		velocity.x = dir * max_speed
-		if Input.is_action_just_pressed(&"move_up") and _can_jump():
+		if Input.is_action_just_pressed(&"move_up"):
 			velocity.y = -_jump_speed
 		elif Input.is_action_just_pressed(&"move_down") and _standing_on_platform():
 			_begin_drop()
@@ -69,15 +69,6 @@ func _motion(delta: float) -> void:
 
 	if Input.is_action_pressed(&"shoot") and _shoot_timer <= 0.0 and _can_shoot():
 		_fire()
-
-# ---------- Jump ----------
-
-func _can_jump() -> bool:
-	# Only called while on the floor, so no double jump is possible
-	if _standing_on_platform():
-		return true
-	var shrine := get_tree().get_first_node_in_group(&"shrine") as Shrine
-	return shrine != null and shrine.climb_rect().has_point(global_position)
 
 # ---------- Dropping through platforms ----------
 

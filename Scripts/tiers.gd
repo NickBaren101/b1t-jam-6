@@ -4,8 +4,8 @@ extends RefCounted
 const CENTER_X := 160.0
 const GROUND_SURFACE_Y := 160.0
 
-const SURFACE_Y: Array[float] = [118.0, 76.0, 34.0]
-const UNLOCK_COST: Array[int] = [5, 15, 30]
+const SURFACE_Y: Array[float] = [118.0, 76.0]
+const UNLOCK_COST: Array[int] = [5, 15]
 
 const PLAYER_HALF_H := 8.0
 const WALKER_HALF_H := 6.0

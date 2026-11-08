@@ -7,7 +7,7 @@ const CLIMB_TOP_SLACK := 2.0
 var _unlocked := 0
 
 @onready var health: HealthComponent = $HealthComponent
-@onready var _tiers: Array[Node2D] = [$Tier1 as Node2D, $Tier2 as Node2D, $Tier3 as Node2D]
+@onready var _tiers: Array[Node2D] = [$Tier1 as Node2D, $Tier2 as Node2D]
 
 func _ready() -> void:
 	Favour.tier_unlocked.connect(_on_tier_unlocked)

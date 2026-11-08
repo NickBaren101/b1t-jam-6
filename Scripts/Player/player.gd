@@ -2,15 +2,15 @@ extends CharacterBody2D
 
 const WALK_SPEED := 70.0
 @export_group("Shooting")
-@export var shoot_cooldown := 0.5     # base cooldown (s) while the shot has not hit anything
-@export var hit_cooldown := 0.25      # base cooldown (s) once a ground shot hits an enemy
+@export var shoot_cooldown := 1.5     # base cooldown (s) while the shot has not hit anything
+@export var hit_cooldown := 0.1      # base cooldown (s) once a ground shot hits an enemy
 @export var count_hit_cooldown_from_shot := true  # false = the hit cooldown starts at the moment of the hit
 @export var hold_to_fire := false      # false = one press per shot
 const INVULN_DURATION := 0.8
 const FLICKER_INTERVAL := 0.08
 
 # --- Jump: gravity and jump speed are derived from OVERSHOOT and APEX_TIME ---
-const OVERSHOOT := 10.0       # px the feet end up ABOVE the platform surface at the apex
+const OVERSHOOT := 2.0       # px the feet end up ABOVE the platform surface at the apex
 const APEX_TIME := 0.3        # s from takeoff to the apex (lower = snappier jump)
 const MAX_FALL_SPEED := 300.0
 const AIR_ACCEL := 40.0       # px/s², only slight steering in the air

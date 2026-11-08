@@ -1,7 +1,11 @@
 extends CharacterBody2D
 
 const WALK_SPEED := 70.0
-const SHOOT_COOLDOWN := 0.35
+@export_group("Shooting")
+@export var shoot_cooldown := 0.5     # base cooldown (s) while the shot has not hit anything
+@export var hit_cooldown := 0.25      # base cooldown (s) once a ground shot hits an enemy
+@export var count_hit_cooldown_from_shot := true  # false = the hit cooldown starts at the moment of the hit
+@export var hold_to_fire := false      # false = one press per shot
 const INVULN_DURATION := 0.8
 const FLICKER_INTERVAL := 0.08
 
@@ -27,6 +31,8 @@ var _drop_time := 0.0
 var _air_shots_left := AIR_SHOTS
 var _shoot_timer := 0.0
 var _invuln_timer := 0.0
+var _since_shot := 999.0
+var _shot_id := 0
 
 @onready var visual: ColorRect = $Visual
 @onready var muzzle: Marker2D = $Muzzle
@@ -52,6 +58,7 @@ func _physics_process(delta: float) -> void:
 func _tick_timers(delta: float) -> void:
 	_shoot_timer = maxf(_shoot_timer - delta, 0.0)
 	_invuln_timer = maxf(_invuln_timer - delta, 0.0)
+	_since_shot += delta
 
 func _motion(delta: float) -> void:
 	var max_speed := WALK_SPEED * Favour.speed_mult()
@@ -68,7 +75,9 @@ func _motion(delta: float) -> void:
 		velocity.x = clampf(velocity.x + dir * AIR_ACCEL * delta, -max_speed, max_speed)
 		velocity.y = minf(velocity.y + _gravity * delta, MAX_FALL_SPEED)
 
-	if Input.is_action_pressed(&"shoot") and _shoot_timer <= 0.0 and _can_shoot():
+	var wants_fire := Input.is_action_pressed(&"shoot") if hold_to_fire \
+			else Input.is_action_just_pressed(&"shoot")
+	if wants_fire and _shoot_timer <= 0.0 and _can_shoot():
 		_fire()
 
 # ---------- Dropping through platforms ----------
@@ -111,18 +120,35 @@ func _query_platform(offset: Vector2) -> bool:
 func _can_shoot() -> bool:
 	return is_on_floor() or _air_shots_left > 0
 
+func _fire_rate() -> float:
+	return maxf(Favour.fire_rate_mult(), 0.01)
+
 func _fire() -> void:
 	if bullet_scene == null:
 		return
-	_shoot_timer = SHOOT_COOLDOWN / maxf(Favour.fire_rate_mult(), 0.01)
-	if not is_on_floor():
+	var grounded := is_on_floor()
+	_shoot_timer = shoot_cooldown / _fire_rate()
+	_since_shot = 0.0
+	_shot_id += 1
+	if not grounded:
 		_air_shots_left -= 1
 	var bullet := bullet_scene.instantiate()
 	var offset := muzzle.position
 	offset.x = absf(offset.x) * facing
 	bullet.direction = Vector2(facing, 0)
+	if grounded:
+		# Air shots are never connected, so they never get the shortened cooldown
+		bullet.hit_enemy.connect(_on_bullet_hit_enemy.bind(_shot_id))
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_position = global_position + offset
+
+func _on_bullet_hit_enemy(shot_id: int) -> void:
+	# Only the latest shot counts, and only while the player stands on the ground
+	if shot_id != _shot_id or not is_on_floor():
+		return
+	var target := minf(hit_cooldown, shoot_cooldown) / _fire_rate()
+	var elapsed := _since_shot if count_hit_cooldown_from_shot else 0.0
+	_shoot_timer = minf(_shoot_timer, maxf(target - elapsed, 0.0))
 
 # ---------- Unchanged ----------
 

@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://4cexebvuwk6d"]
 
-[ext_resource type="Script" path="res://Scripts/Shrine/shrine.gd" id="1_shrine"]
-[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="2_health"]
+[ext_resource type="Script" uid="uid://c6msxqbjpy58o" path="res://Scripts/Shrine/shrine.gd" id="1_shrine"]
+[ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="2_health"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_core"]
 size = Vector2(36, 140)
@@ -9,97 +9,94 @@ size = Vector2(36, 140)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tier"]
 size = Vector2(72, 6)
 
-[node name="Shrine" type="StaticBody2D" groups=["shrine"]]
+[node name="Shrine" type="StaticBody2D" unique_id=807338499 groups=["shrine"]]
 position = Vector2(160, 0)
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_shrine")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=830230182]
 position = Vector2(0, 90)
 shape = SubResource("RectangleShape2D_core")
 
-[node name="Lintel" type="ColorRect" parent="."]
+[node name="Lintel" type="ColorRect" parent="." unique_id=299188975]
 offset_left = -18.0
 offset_top = 132.0
 offset_right = 18.0
 offset_bottom = 135.0
 
-[node name="LeftPillar" type="ColorRect" parent="."]
+[node name="LeftPillar" type="ColorRect" parent="." unique_id=1035044694]
 offset_left = -14.0
 offset_top = 136.0
 offset_right = -11.0
 offset_bottom = 160.0
 
-[node name="RightPillar" type="ColorRect" parent="."]
+[node name="RightPillar" type="ColorRect" parent="." unique_id=186638361]
 offset_left = 11.0
 offset_top = 136.0
 offset_right = 14.0
 offset_bottom = 160.0
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=383606315]
 script = ExtResource("2_health")
 max_health = 12
 
-[node name="Tier1" type="Node2D" parent="."]
+[node name="Tier1" type="Node2D" parent="." unique_id=1812770863]
 visible = false
 position = Vector2(0, 118)
 
-[node name="Body" type="StaticBody2D" parent="Tier1"]
+[node name="Body" type="StaticBody2D" parent="Tier1" unique_id=945773050]
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier1/Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier1/Body" unique_id=679282953]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_tier")
 disabled = true
 one_way_collision = true
 one_way_collision_margin = 4.0
 
-[node name="Visual" type="ColorRect" parent="Tier1"]
+[node name="Visual" type="ColorRect" parent="Tier1" unique_id=192458182]
 offset_left = -36.0
-offset_top = 0.0
 offset_right = 36.0
 offset_bottom = 6.0
 
-[node name="Tier2" type="Node2D" parent="."]
+[node name="Tier2" type="Node2D" parent="." unique_id=1762689037]
 visible = false
 position = Vector2(0, 76)
 
-[node name="Body" type="StaticBody2D" parent="Tier2"]
+[node name="Body" type="StaticBody2D" parent="Tier2" unique_id=832989880]
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier2/Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier2/Body" unique_id=1103320871]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_tier")
 disabled = true
 one_way_collision = true
 one_way_collision_margin = 4.0
 
-[node name="Visual" type="ColorRect" parent="Tier2"]
+[node name="Visual" type="ColorRect" parent="Tier2" unique_id=722683246]
 offset_left = -36.0
-offset_top = 0.0
 offset_right = 36.0
 offset_bottom = 6.0
 
-[node name="Tier3" type="Node2D" parent="."]
+[node name="Tier3" type="Node2D" parent="." unique_id=1500224689]
 visible = false
 position = Vector2(0, 34)
 
-[node name="Body" type="StaticBody2D" parent="Tier3"]
+[node name="Body" type="StaticBody2D" parent="Tier3" unique_id=2049783344]
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier3/Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier3/Body" unique_id=1291344275]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_tier")
 disabled = true
 one_way_collision = true
 one_way_collision_margin = 4.0
 
-[node name="Visual" type="ColorRect" parent="Tier3"]
+[node name="Visual" type="ColorRect" parent="Tier3" unique_id=776589050]
 offset_left = -36.0
-offset_top = 0.0
 offset_right = 36.0
 offset_bottom = 6.0

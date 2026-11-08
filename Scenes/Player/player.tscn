@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://ccm7p0wh0o78f"]
 
-[ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://cxf04yuvqjm6w" path="res://Scripts/Player/player.gd" id="1_player"]
 [ext_resource type="PackedScene" path="res://Scenes/Bullet/bullet.tscn" id="2_bullet"]
-[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="3_health"]
+[ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="3_health"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(8, 16)
@@ -10,31 +10,31 @@ size = Vector2(8, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_probe"]
 size = Vector2(7, 14)
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1901511541 groups=["player"]]
 collision_layer = 2
 collision_mask = 17
 script = ExtResource("1_player")
 bullet_scene = ExtResource("2_bullet")
 
-[node name="Visual" type="ColorRect" parent="."]
+[node name="Visual" type="ColorRect" parent="." unique_id=1251256332]
 offset_left = -4.0
 offset_top = -8.0
 offset_right = 4.0
 offset_bottom = 8.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=78935379]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="Muzzle" type="Marker2D" parent="."]
+[node name="Muzzle" type="Marker2D" parent="." unique_id=787516532]
 position = Vector2(6, -2)
 
-[node name="PlatformProbe" type="Area2D" parent="."]
+[node name="PlatformProbe" type="Area2D" parent="." unique_id=338061578]
 collision_layer = 0
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformProbe"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformProbe" unique_id=4337792]
 shape = SubResource("RectangleShape2D_probe")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=1171769996]
 script = ExtResource("3_health")
 max_health = 5

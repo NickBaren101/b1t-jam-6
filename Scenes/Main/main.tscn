@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dp5xpu722j3dj" path="res://Scripts/Main/main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://cpbhueuma0qho" path="res://Scripts/Main/spawner.gd" id="2_spawner"]
-[ext_resource type="PackedScene" path="res://Scenes/Shrine/shrine.tscn" id="3_shrine"]
-[ext_resource type="PackedScene" path="res://Scenes/Player/player.tscn" id="4_player"]
+[ext_resource type="PackedScene" uid="uid://4cexebvuwk6d" path="res://Scenes/Shrine/shrine.tscn" id="3_shrine"]
+[ext_resource type="PackedScene" uid="uid://ccm7p0wh0o78f" path="res://Scenes/Player/player.tscn" id="4_player"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/walker.tscn" id="5_walker"]
 [ext_resource type="PackedScene" uid="uid://bflcvjcqcytl0" path="res://Scenes/Enemy/flyer.tscn" id="6_flyer"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/hud.tscn" id="7_hud"]

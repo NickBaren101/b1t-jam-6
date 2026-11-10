@@ -28,6 +28,7 @@ var _gravity := 0.0
 var _jump_speed := 0.0
 var _dropping := false
 var _drop_time := 0.0
+var _knocked_down := false  # platforms stay off until the ground is reached
 var _air_shots_left := AIR_SHOTS
 var _shoot_timer := 0.0
 var _invuln_timer := 0.0
@@ -94,11 +95,12 @@ func _update_drop(delta: float) -> void:
 	_drop_time += delta
 	if _drop_time < DROP_MIN_TIME:
 		return
-	var released := not Input.is_action_pressed(&"move_down")
+	var released := not _knocked_down and not Input.is_action_pressed(&"move_down")
 	var landed := is_on_floor()  # with platforms off, this can only be the ground
 	# Platforms turn solid again only once the player is completely out of them
 	if (released or landed) and not _overlaps_platform():
 		_dropping = false
+		_knocked_down = false
 		set_collision_mask_value(PLATFORM_MASK_BIT, true)
 
 func _standing_on_platform() -> bool:
@@ -169,3 +171,11 @@ func take_damage(amount: int) -> void:
 		return
 	_invuln_timer = INVULN_DURATION
 	health.take_damage(amount)
+
+# Moon boss hits: damage, then fall through every shrine platform to the ground
+func knock_down(amount: int) -> void:
+	if _invuln_timer > 0.0:
+		return
+	take_damage(amount)
+	_knocked_down = true
+	_begin_drop()

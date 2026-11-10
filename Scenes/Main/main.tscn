@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/walker.tscn" id="5_walker"]
 [ext_resource type="PackedScene" uid="uid://bflcvjcqcytl0" path="res://Scenes/Enemy/flyer.tscn" id="6_flyer"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemy/moon.tscn" id="8_moon"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(448, 20)
@@ -57,6 +58,7 @@ shape = SubResource("RectangleShape2D_wall")
 script = ExtResource("2_spawner")
 walker_scene = ExtResource("5_walker")
 flyer_scene = ExtResource("6_flyer")
+moon_scene = ExtResource("8_moon")
 
 [node name="Player" parent="." unique_id=819642984 instance=ExtResource("4_player")]
 position = Vector2(112, 152)

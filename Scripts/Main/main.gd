@@ -12,6 +12,7 @@ func _ready() -> void:
 	player_health.health_changed.connect(hud.set_player_health)
 	shrine_health.died.connect(_on_run_ended.bind("THE SHRINE HAS FALLEN"))
 	player_health.died.connect(_on_run_ended.bind("JINSHA HAS FALLEN"))
+	$Spawner.boss_defeated.connect(_on_run_ended.bind("THE MOON HAS FALLEN"))
 	hud.set_shrine_health(shrine_health.current_health, shrine_health.max_health)
 	hud.set_player_health(player_health.current_health, player_health.max_health)
 

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/moon.gd" id="1_moon"]
+[ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="2_health"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemy/asteroid.tscn" id="3_asteroid"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_moon"]
+radius = 40.0
+
+[node name="Moon" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_moon")
+asteroid_scene = ExtResource("3_asteroid")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_moon")
+
+[node name="ContactHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]
+shape = SubResource("CircleShape2D_moon")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 10

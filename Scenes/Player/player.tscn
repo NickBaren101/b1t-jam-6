@@ -1,11 +1,27 @@
 [gd_scene format=3 uid="uid://ccm7p0wh0o78f"]
 
 [ext_resource type="Script" uid="uid://cxf04yuvqjm6w" path="res://Scripts/Player/player.gd" id="1_player"]
-[ext_resource type="PackedScene" path="res://Scenes/Bullet/bullet.tscn" id="2_bullet"]
+[ext_resource type="PackedScene" uid="uid://b4dlkqfsvly5" path="res://Scenes/Bullet/bullet.tscn" id="2_bullet"]
 [ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="3_health"]
-[ext_resource type="Texture2D" uid="uid://ci7gmbk5uwi2j" path="res://Assets/Team Godot Asset Folder/Sprites/Player/Walk.png" id="walk_tex"]
 [ext_resource type="Texture2D" uid="uid://bxnbr751y1gu8" path="res://Assets/Team Godot Asset Folder/Sprites/Player/Attack.png" id="attack_tex"]
 [ext_resource type="Texture2D" uid="uid://de8pfky0nf63m" path="res://Assets/Team Godot Asset Folder/Sprites/Player/slash attacks/slash smear.png" id="smear_tex"]
+[ext_resource type="Texture2D" uid="uid://ci7gmbk5uwi2j" path="res://Assets/Team Godot Asset Folder/Sprites/Player/Walk.png" id="walk_tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_6"]
+atlas = ExtResource("attack_tex")
+region = Rect2(0, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_7"]
+atlas = ExtResource("attack_tex")
+region = Rect2(50, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_8"]
+atlas = ExtResource("attack_tex")
+region = Rect2(100, 0, 50, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_9"]
+atlas = ExtResource("attack_tex")
+region = Rect2(150, 0, 50, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_player_1"]
 atlas = ExtResource("walk_tex")
@@ -27,41 +43,30 @@ region = Rect2(64, 0, 32, 30)
 atlas = ExtResource("walk_tex")
 region = Rect2(96, 0, 32, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_player_6"]
-atlas = ExtResource("attack_tex")
-region = Rect2(0, 0, 50, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_player_7"]
-atlas = ExtResource("attack_tex")
-region = Rect2(50, 0, 50, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_player_8"]
-atlas = ExtResource("attack_tex")
-region = Rect2(100, 0, 50, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_player_9"]
-atlas = ExtResource("attack_tex")
-region = Rect2(150, 0, 50, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_player_10"]
-atlas = ExtResource("smear_tex")
-region = Rect2(0, 0, 48, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_player_11"]
-atlas = ExtResource("smear_tex")
-region = Rect2(48, 0, 48, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_player_12"]
-atlas = ExtResource("smear_tex")
-region = Rect2(96, 0, 48, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_player"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_player_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_player_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_player_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_player_9")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_player_1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 1.0
 }, {
@@ -78,27 +83,22 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_player_5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_player_6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_player_7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_player_8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_player_9")
-}],
-"loop": false,
-"name": &"attack",
-"speed": 20.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_10"]
+atlas = ExtResource("smear_tex")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_11"]
+atlas = ExtResource("smear_tex")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_player_12"]
+atlas = ExtResource("smear_tex")
+region = Rect2(96, 0, 48, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_smear"]
 animations = [{
@@ -112,16 +112,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_player_12")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 20.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(16, 26)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_probe"]
-size = Vector2(7, 14)
 
 [node name="Player" type="CharacterBody2D" unique_id=1901511541 groups=["player"]]
 collision_layer = 2
@@ -131,13 +128,13 @@ bullet_scene = ExtResource("2_bullet")
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1251256332]
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Visuals"]
+[node name="Sprite" type="AnimatedSprite2D" parent="Visuals" unique_id=867003594]
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_player")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="Smear" type="AnimatedSprite2D" parent="Visuals"]
+[node name="Smear" type="AnimatedSprite2D" parent="Visuals" unique_id=1733539502]
 visible = false
 position = Vector2(19, -2)
 sprite_frames = SubResource("SpriteFrames_smear")
@@ -148,13 +145,6 @@ shape = SubResource("RectangleShape2D_body")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=787516532]
 position = Vector2(6, -2)
-
-[node name="PlatformProbe" type="Area2D" parent="." unique_id=338061578]
-collision_layer = 0
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformProbe" unique_id=4337792]
-shape = SubResource("RectangleShape2D_probe")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1171769996]
 script = ExtResource("3_health")

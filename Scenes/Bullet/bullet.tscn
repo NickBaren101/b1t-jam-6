@@ -1,6 +1,69 @@
 [gd_scene format=3 uid="uid://b4dlkqfsvly5"]
 
 [ext_resource type="Script" uid="uid://ci1e30wrfi4n7" path="res://Scripts/Bullet/bullet.gd" id="1_bullet"]
+[ext_resource type="Texture2D" uid="uid://gmcrjvgepudr" path="res://Assets/Team Godot Asset Folder/Sprites/Player/slash attacks/slash projectile.png" id="slash_tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullet_1"]
+atlas = ExtResource("slash_tex")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullet_2"]
+atlas = ExtResource("slash_tex")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullet_3"]
+atlas = ExtResource("slash_tex")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullet_4"]
+atlas = ExtResource("slash_tex")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullet_5"]
+atlas = ExtResource("slash_tex")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullet_6"]
+atlas = ExtResource("slash_tex")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bullet_7"]
+atlas = ExtResource("slash_tex")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_slash"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bullet_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bullet_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bullet_3")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bullet_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bullet_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bullet_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bullet_7")
+}],
+"loop": false,
+"name": &"fade",
+"speed": 20.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bullet"]
 size = Vector2(4, 4)
@@ -10,11 +73,9 @@ collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_bullet")
 
-[node name="Visual" type="ColorRect" parent="." unique_id=1201643041]
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 2.0
-offset_bottom = 2.0
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1201643041]
+sprite_frames = SubResource("SpriteFrames_slash")
+animation = &"fly"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2129897776]
 shape = SubResource("RectangleShape2D_bullet")

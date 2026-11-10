@@ -1,5 +1,6 @@
 extends Node2D
 
+signal boss_started
 signal boss_defeated
 
 const SPAWN_INTERVAL_START := 2.2
@@ -92,6 +93,7 @@ func _spawn_boss() -> void:
 	moon.defeated.connect(boss_defeated.emit)
 	add_child(moon)
 	moon.start_at_corner(randi() % 2)
+	boss_started.emit()
 
 # Called by asteroids hitting the ground, ignores MAX_ALIVE
 func spawn_walkers_at(x: float, count: int) -> void:

@@ -35,7 +35,9 @@ var _invuln_timer := 0.0
 var _since_shot := 999.0
 var _shot_id := 0
 
-@onready var visual: ColorRect = $Visual
+@onready var visuals: Node2D = $Visuals  # drawn facing right, mirrored by facing
+@onready var sprite: AnimatedSprite2D = $Visuals/Sprite
+@onready var smear: AnimatedSprite2D = $Visuals/Smear
 @onready var muzzle: Marker2D = $Muzzle
 @onready var health: HealthComponent = $HealthComponent
 @onready var _shape_node: CollisionShape2D = $CollisionShape2D
@@ -45,6 +47,7 @@ func _ready() -> void:
 	var height := rise + OVERSHOOT
 	_gravity = 2.0 * height / (APEX_TIME * APEX_TIME)
 	_jump_speed = 2.0 * height / APEX_TIME
+	smear.animation_finished.connect(smear.hide)
 
 func _physics_process(delta: float) -> void:
 	_tick_timers(delta)
@@ -54,6 +57,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		_air_shots_left = AIR_SHOTS
 	_update_facing()
+	_update_animation()
 	_update_flicker()
 
 func _tick_timers(delta: float) -> void:
@@ -69,8 +73,10 @@ func _motion(delta: float) -> void:
 		velocity.x = dir * max_speed
 		if Input.is_action_just_pressed(&"move_up"):
 			velocity.y = -_jump_speed
+			Sfx.play(&"jump")
 		elif Input.is_action_just_pressed(&"move_down") and _standing_on_platform():
 			_begin_drop()
+			Sfx.play(&"drop")
 	else:
 		# Takeoff speed is kept: parabola when moving, straight drop when standing still
 		velocity.x = clampf(velocity.x + dir * AIR_ACCEL * delta, -max_speed, max_speed)
@@ -134,6 +140,7 @@ func _fire() -> void:
 	_shot_id += 1
 	if not grounded:
 		_air_shots_left -= 1
+	_play_attack()
 	var bullet := bullet_scene.instantiate()
 	var offset := muzzle.position
 	offset.x = absf(offset.x) * facing
@@ -152,6 +159,22 @@ func _on_bullet_hit_enemy(shot_id: int) -> void:
 	var elapsed := _since_shot if count_hit_cooldown_from_shot else 0.0
 	_shoot_timer = minf(_shoot_timer, maxf(target - elapsed, 0.0))
 
+func _play_attack() -> void:
+	Sfx.play(&"slash")
+	sprite.play(&"attack")
+	sprite.frame = 0
+	smear.show()
+	smear.play(&"default")
+	smear.frame = 0
+
+# ---------- Visuals ----------
+
+func _update_animation() -> void:
+	visuals.scale.x = facing
+	if sprite.animation == &"attack" and sprite.is_playing():
+		return
+	sprite.play(&"walk" if is_on_floor() and velocity.x != 0.0 else &"idle")
+
 # ---------- Unchanged ----------
 
 func _update_facing() -> void:
@@ -162,15 +185,16 @@ func _update_facing() -> void:
 
 func _update_flicker() -> void:
 	if _invuln_timer <= 0.0:
-		visual.visible = true
+		visuals.visible = true
 		return
-	visual.visible = int(_invuln_timer / FLICKER_INTERVAL) % 2 == 0
+	visuals.visible = int(_invuln_timer / FLICKER_INTERVAL) % 2 == 0
 
 func take_damage(amount: int) -> void:
 	if _invuln_timer > 0.0:
 		return
 	_invuln_timer = INVULN_DURATION
 	health.take_damage(amount)
+	Sfx.play(&"player_hit")
 
 # Moon boss hits: damage, then fall through every shrine platform to the ground
 func knock_down(amount: int) -> void:

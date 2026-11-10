@@ -27,6 +27,7 @@ func climb_top_y() -> float:
 
 func _on_tier_unlocked(index: int) -> void:
 	_unlocked = maxi(_unlocked, index + 1)
+	Sfx.play(&"upgrade")
 	var tier := _tiers[index]
 	tier.visible = true
 	tier.get_node("Body/CollisionShape2D").set_deferred("disabled", false)

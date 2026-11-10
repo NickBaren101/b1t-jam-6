@@ -167,6 +167,7 @@ func _begin_telegraph() -> void:
 	aim_ray.visible = true
 	_telegraphing = true
 	_shoot_timer = TELEGRAPH_TIME
+	_play_visual(&"attack")
 	_animate_telegraph()
 
 
@@ -180,6 +181,7 @@ func _end_telegraph() -> void:
 	aim_ray.enabled = false
 	aim_ray.visible = false
 	modulate = Color.WHITE
+	_play_visual(&"default")
 
 
 # Called when the flyer has to move again: no shot, start over after stopping

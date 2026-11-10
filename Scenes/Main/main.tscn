@@ -8,6 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://bflcvjcqcytl0" path="res://Scenes/Enemy/flyer.tscn" id="6_flyer"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/hud.tscn" id="7_hud"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/moon.tscn" id="8_moon"]
+[ext_resource type="Texture2D" uid="uid://d3vxkfs0n0ky5" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple.png" id="temple_tex"]
+[ext_resource type="Texture2D" uid="uid://dibpu11v7pjca" path="res://Assets/Team Godot Asset Folder/Backgrounds/Abe´s Assets.png" id="abe_tex"]
+[ext_resource type="AudioStream" uid="uid://ey2t1txedgpn" path="res://Assets/Team Godot Asset Folder/Audio/Music/New_Project (1).mp3" id="music_main"]
+[ext_resource type="AudioStream" uid="uid://dsrv3tp0rcvt0" path="res://Assets/Team Godot Asset Folder/Audio/Music/New_Project2.mp3" id="music_boss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(448, 20)
@@ -17,20 +21,60 @@ size = Vector2(8, 240)
 
 [node name="Main" type="Node2D" unique_id=2003014098]
 script = ExtResource("1_main")
+boss_music = ExtResource("music_boss")
 
-[node name="Background" type="ColorRect" parent="." unique_id=538299392]
-offset_right = 320.0
-offset_bottom = 180.0
-color = Color(0, 0, 0, 1)
+[node name="Background" type="Sprite2D" parent="." unique_id=538299392]
+position = Vector2(0, -14)
+texture = ExtResource("temple_tex")
+centered = false
+
+[node name="Decor" type="Node2D" parent="."]
+
+[node name="CloudLeft" type="Sprite2D" parent="Decor"]
+position = Vector2(40, 30)
+texture = ExtResource("abe_tex")
+centered = false
+region_enabled = true
+region_rect = Rect2(21, 90, 46, 12)
+
+[node name="CloudRight" type="Sprite2D" parent="Decor"]
+position = Vector2(252, 24)
+texture = ExtResource("abe_tex")
+centered = false
+region_enabled = true
+region_rect = Rect2(4, 114, 31, 8)
+
+[node name="Torii" type="Sprite2D" parent="Decor"]
+position = Vector2(8, 85)
+texture = ExtResource("abe_tex")
+centered = false
+region_enabled = true
+region_rect = Rect2(2, 2, 70, 75)
+
+[node name="LanternLeft" type="Sprite2D" parent="Decor"]
+position = Vector2(84, 123)
+texture = ExtResource("abe_tex")
+centered = false
+region_enabled = true
+region_rect = Rect2(89, 40, 18, 37)
+
+[node name="LanternRight" type="Sprite2D" parent="Decor"]
+position = Vector2(218, 123)
+texture = ExtResource("abe_tex")
+centered = false
+region_enabled = true
+region_rect = Rect2(89, 40, 18, 37)
+
+[node name="Tree" type="Sprite2D" parent="Decor"]
+position = Vector2(236, 105)
+texture = ExtResource("abe_tex")
+centered = false
+region_enabled = true
+region_rect = Rect2(214, 21, 82, 55)
 
 [node name="Ground" type="StaticBody2D" parent="." unique_id=1583839113]
 position = Vector2(160, 160)
 collision_mask = 0
-
-[node name="Visual" type="ColorRect" parent="Ground" unique_id=1320622178]
-offset_left = -224.0
-offset_right = 224.0
-offset_bottom = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=75520690]
 position = Vector2(0, 10)
@@ -64,3 +108,8 @@ moon_scene = ExtResource("8_moon")
 position = Vector2(112, 152)
 
 [node name="Hud" parent="." unique_id=1557613905 instance=ExtResource("7_hud")]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("music_main")
+volume_db = -6.0
+autoplay = true

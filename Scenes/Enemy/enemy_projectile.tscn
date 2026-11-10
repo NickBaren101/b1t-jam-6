@@ -1,19 +1,56 @@
 [gd_scene format=3 uid="uid://cft1f0vhlc4wg"]
 
 [ext_resource type="Script" uid="uid://bjw1bcchsakif" path="res://Scripts/Enemy/enemy_projectile.gd" id="1_ffu00"]
+[ext_resource type="Texture2D" uid="uid://g0qyakegryvd" path="res://Assets/Team Godot Asset Folder/Sprites/Enemies/ghost_projectil.png" id="ghost_shot_tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_projectile_1"]
+atlas = ExtResource("ghost_shot_tex")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_projectile_2"]
+atlas = ExtResource("ghost_shot_tex")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_projectile_3"]
+atlas = ExtResource("ghost_shot_tex")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_projectile_4"]
+atlas = ExtResource("ghost_shot_tex")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ghost_shot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_projectile_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_projectile_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_projectile_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_projectile_4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ffu00"]
 radius = 2.0
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5goq7"]
 
 [node name="enemy_projectile" type="Area2D" unique_id=995929496]
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_ffu00")
+draw_placeholder = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=797001946]
 shape = SubResource("CircleShape2D_ffu00")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=964753134]
-texture = SubResource("PlaceholderTexture2D_5goq7")
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=964753134]
+sprite_frames = SubResource("SpriteFrames_ghost_shot")
+autoplay = "default"

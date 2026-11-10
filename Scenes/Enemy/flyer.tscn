@@ -3,6 +3,136 @@
 [ext_resource type="Script" uid="uid://c2dy7lx2q5bsl" path="res://Scripts/Enemy/flyer.gd" id="1_flyer"]
 [ext_resource type="PackedScene" uid="uid://cft1f0vhlc4wg" path="res://Scenes/Enemy/enemy_projectile.tscn" id="2_7dfxh"]
 [ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="2_health"]
+[ext_resource type="Texture2D" uid="uid://cvlgo5rp6faea" path="res://Assets/Team Godot Asset Folder/Sprites/Enemies/batjam-48x48.png" id="bat_tex"]
+[ext_resource type="Texture2D" uid="uid://cgh2a0awhtc6d" path="res://Assets/Team Godot Asset Folder/Sprites/Enemies/flying_skeleton.png" id="skeleton_tex"]
+[ext_resource type="Texture2D" uid="uid://g6askvbauifc" path="res://Assets/Team Godot Asset Folder/Sprites/Enemies/ghost_walk-attack.png" id="ghost_tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_1"]
+atlas = ExtResource("bat_tex")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_2"]
+atlas = ExtResource("bat_tex")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_3"]
+atlas = ExtResource("skeleton_tex")
+region = Rect2(0, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_4"]
+atlas = ExtResource("skeleton_tex")
+region = Rect2(37, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_5"]
+atlas = ExtResource("skeleton_tex")
+region = Rect2(74, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_6"]
+atlas = ExtResource("skeleton_tex")
+region = Rect2(111, 0, 37, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_7"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_8"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_9"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_10"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_11"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_12"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_13"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flyer_14"]
+atlas = ExtResource("ghost_tex")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bat"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_skeleton"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ghost"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_10")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flyer_14")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_flyer"]
 size = Vector2(10, 8)
@@ -17,11 +147,19 @@ script = ExtResource("1_flyer")
 projectile_scene = ExtResource("2_7dfxh")
 speed = 55.0
 
-[node name="Visual" type="ColorRect" parent="." unique_id=567699784]
-offset_left = -5.0
-offset_top = -4.0
-offset_right = 5.0
-offset_bottom = 4.0
+[node name="Visuals" type="Node2D" parent="." unique_id=567699784]
+
+[node name="Bat" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_bat")
+
+[node name="Skeleton" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(-0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_skeleton")
+
+[node name="Ghost" type="AnimatedSprite2D" parent="Visuals"]
+sprite_frames = SubResource("SpriteFrames_ghost")
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1904417576]
 shape = SubResource("RectangleShape2D_flyer")

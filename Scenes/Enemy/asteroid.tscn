@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/asteroid.gd" id="1_asteroid"]
+[ext_resource type="Texture2D" uid="uid://b5rcn6w30023i" path="res://Assets/Team Godot Asset Folder/Backgrounds/Honey´s Assets.png" id="honey_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_asteroid"]
 radius = 7.0
@@ -11,6 +12,12 @@ collision_mask = 7
 script = ExtResource("1_asteroid")
 speed = 40.0
 lifetime = 12.0
+draw_placeholder = false
+
+[node name="Visual" type="Sprite2D" parent="."]
+texture = ExtResource("honey_tex")
+region_enabled = true
+region_rect = Rect2(65, 6, 14, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_asteroid")

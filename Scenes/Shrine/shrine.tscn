@@ -2,63 +2,51 @@
 
 [ext_resource type="Script" uid="uid://c6msxqbjpy58o" path="res://Scripts/Shrine/shrine.gd" id="1_shrine"]
 [ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="2_health"]
+[ext_resource type="Texture2D" uid="uid://bcamtmftl7ram" path="res://Assets/Team Godot Asset Folder/Backgrounds/Only_Temple.png" id="3_building"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_core"]
-size = Vector2(36, 140)
+size = Vector2(126, 60)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tier"]
-size = Vector2(72, 6)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_upper"]
+size = Vector2(123, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lower"]
+size = Vector2(126, 6)
 
 [node name="Shrine" type="StaticBody2D" unique_id=807338499 groups=["shrine"]]
-position = Vector2(160, 0)
+position = Vector2(240, 230)
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_shrine")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=830230182]
-position = Vector2(0, 90)
+position = Vector2(-1, -30)
 shape = SubResource("RectangleShape2D_core")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=383606315]
 script = ExtResource("2_health")
 max_health = 12
 
-[node name="Tier1" type="Node2D" parent="." unique_id=1812770863]
-visible = false
-position = Vector2(0, 118)
-
-[node name="Body" type="StaticBody2D" parent="Tier1" unique_id=945773050]
+[node name="Temple" type="AnimatableBody2D" parent="."]
+position = Vector2(-160, -80)
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier1/Body" unique_id=679282953]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_tier")
+[node name="Sprite" type="Sprite2D" parent="Temple"]
+position = Vector2(96, 28)
+texture = ExtResource("3_building")
+centered = false
+
+[node name="UpperEave" type="CollisionShape2D" parent="Temple"]
+position = Vector2(159.5, 83)
+shape = SubResource("RectangleShape2D_upper")
 disabled = true
 one_way_collision = true
 one_way_collision_margin = 4.0
 
-[node name="Visual" type="ColorRect" parent="Tier1" unique_id=192458182]
-offset_left = -36.0
-offset_right = 36.0
-offset_bottom = 6.0
-
-[node name="Tier2" type="Node2D" parent="." unique_id=1762689037]
-visible = false
-position = Vector2(0, 76)
-
-[node name="Body" type="StaticBody2D" parent="Tier2" unique_id=832989880]
-collision_layer = 16
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tier2/Body" unique_id=1103320871]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_tier")
+[node name="LowerEave" type="CollisionShape2D" parent="Temple"]
+position = Vector2(159, 129)
+shape = SubResource("RectangleShape2D_lower")
 disabled = true
 one_way_collision = true
 one_way_collision_margin = 4.0
-
-[node name="Visual" type="ColorRect" parent="Tier2" unique_id=722683246]
-offset_left = -36.0
-offset_right = 36.0
-offset_bottom = 6.0

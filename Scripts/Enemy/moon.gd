@@ -12,14 +12,16 @@ const ENRAGE_FRACTION := 0.25
 const TELEGRAPH_TIME := 1.0      # last part of the wait, aim is locked here
 const CONTACT_COOLDOWN := 0.8
 const FALL_GRAVITY := 200.0
-const OFFSCREEN_Y := 180.0
+const OFFSCREEN_Y := 270.0
 const ARRIVE_EPSILON := 0.5
-const CORNER_X: Array[float] = [0.0, 320.0]
+# Fully on screen: radius 40 + 12 px margin from each side
+const CORNER_X: Array[float] = [52.0, 428.0]
 const TELEGRAPH_COLOR := Color(1.0, 0.3, 0.3)
-const MOON_COLOR := Color(0.92, 0.9, 0.78)
 
-@export var radius := 40.0        # centered on a corner, so only a quarter is visible
-@export var center_y := 0.0
+@export var radius := 40.0
+# Spans y 25..105: a jump from the top platform shoots at ~y 76 (tier 2 stand y 128 - 50 jump - 2 muzzle),
+# standing shots from any platform pass under it
+@export var center_y := 65.0
 @export var travel_speed := 30.0
 @export var contact_damage := 1
 @export var asteroid_scene: PackedScene
@@ -34,18 +36,21 @@ var _aim_locked := false
 var _aim_dir := Vector2.DOWN
 
 @onready var contact_hitbox: Area2D = $ContactHitbox
+@onready var visual: Sprite2D = $Visual
 
 
 func _ready() -> void:
 	super._ready()
 	# Body and ContactHitbox share this shape
 	($CollisionShape2D.shape as CircleShape2D).radius = radius
+	visual.scale = Vector2.ONE * radius * 2.0 / visual.region_rect.size.y
 	_start_aiming()
 
 
 func start_at_corner(corner: int) -> void:
 	_corner = corner
 	global_position = Vector2(CORNER_X[corner], center_y)
+	_face_corner()
 
 
 func _move(delta: float) -> void:
@@ -128,6 +133,7 @@ func _shoot() -> void:
 		get_tree().current_scene.add_child(rock)
 		rock.global_position = global_position + _aim_dir * radius
 	_corner = 1 - _corner
+	_face_corner()
 	_state = State.TRAVELLING
 
 
@@ -144,5 +150,6 @@ func _health_fraction() -> float:
 	return float(health.current_health) / float(health.max_health)
 
 
-func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, MOON_COLOR)
+# The crescent opens to the upper right; mirrored on the left so it always opens outward
+func _face_corner() -> void:
+	visual.flip_h = _corner == 0

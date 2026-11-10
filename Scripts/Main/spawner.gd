@@ -1,49 +1,56 @@
 extends Node2D
 
-signal boss_started
+signal wave_started(index: int)
+signal wave_cleared(index: int)  # spawn window over and every wave enemy dead
+signal boss_started(moon: Moon)
 signal boss_defeated
 
-const SPAWN_INTERVAL_START := 2.2
-const SPAWN_INTERVAL_MIN := 0.45
-const SPAWN_INTERVAL_DECAY := 0.97
+# duration: s of spawning; interval goes from interval_start to interval_min over it.
+# Flyer lanes = wave index, which matches the platforms the shrine has revealed by then.
+const WAVES: Array[Dictionary] = [
+	{duration = 30.0, interval_start = 2.0, interval_min = 1.2, flyer_chance = 0.0},
+	{duration = 35.0, interval_start = 1.6, interval_min = 0.9, flyer_chance = 0.35},
+	{duration = 40.0, interval_start = 1.3, interval_min = 0.6, flyer_chance = 0.45},
+]
 const BALANCE_DEADBAND := 2
 const MAX_ALIVE := 24
-const FLYER_CHANCE := 0.45
-const SPAWN_X: Array[float] = [-16.0, 336.0]
-const BOSS_DELAY := 20.0          # s after the last shrine tier unlocks
+const SPAWN_X: Array[float] = [-16.0, 496.0]
 const BOSS_SPAWN_SPREAD := 12.0   # px between walkers from one asteroid
 const BOSS_SPAWN_MIN_X := 8.0
-const BOSS_SPAWN_MAX_X := 312.0
+const BOSS_SPAWN_MAX_X := 472.0
 
 @export var walker_scene: PackedScene
 @export var flyer_scene: PackedScene
 @export var moon_scene: PackedScene
 
 var _side_counts: Array[int] = [0, 0]
-var _interval := SPAWN_INTERVAL_START
-var _timer := SPAWN_INTERVAL_START
-var _boss_timer := -1.0
-var _boss_pending := false  # timer done, waiting for every enemy to be killed
-var _boss_active := false
+var _wave := -1
+var _wave_active := false
+var _wave_time := 0.0
+var _timer := 0.0
 
-func _ready() -> void:
-	Favour.tier_unlocked.connect(_on_tier_unlocked)
+func start_wave(index: int) -> void:
+	_wave = index
+	_wave_active = true
+	_wave_time = 0.0
+	_timer = WAVES[index].interval_start
+	wave_started.emit(index)
 
 func _process(delta: float) -> void:
-	if _boss_timer > 0.0:
-		_boss_timer -= delta
-		if _boss_timer <= 0.0:
-			_boss_pending = true
-	if _boss_pending and _side_counts[0] + _side_counts[1] == 0:
-		_boss_pending = false
-		_spawn_boss()
-	if _boss_pending or _boss_active:
-		return  # regular spawns stop so the screen can be cleared, and stay off during the boss
+	if not _wave_active:
+		return
+	var wave: Dictionary = WAVES[_wave]
+	if _wave_time >= wave.duration:
+		if _side_counts[0] + _side_counts[1] == 0:
+			_wave_active = false
+			wave_cleared.emit(_wave)
+		return
+	_wave_time += delta
 	_timer -= delta
 	if _timer > 0.0:
 		return
-	_spawn()
-	_timer = _interval
+	_spawn(wave)
+	_timer = lerpf(wave.interval_start, wave.interval_min, minf(_wave_time / wave.duration, 1.0))
 
 func _pick_side() -> int:
 	var diff := _side_counts[0] - _side_counts[1]
@@ -51,14 +58,15 @@ func _pick_side() -> int:
 		return randi() % 2
 	return 1 if diff > 0 else 0
 
-func _spawn() -> void:
+func _spawn(wave: Dictionary) -> void:
 	if _side_counts[0] + _side_counts[1] >= MAX_ALIVE:
 		return
 	var side := _pick_side()
-	var use_flyer := Favour.unlocked_tiers > 0 and randf() < FLYER_CHANCE
+	var lanes := _wave
+	var use_flyer: bool = lanes > 0 and randf() < float(wave.flyer_chance)
 	var lane := 0
 	if use_flyer:
-		lane = randi() % Favour.unlocked_tiers
+		lane = randi() % lanes
 		if Flyer.is_queue_full(side, lane):
 			use_flyer = false
 	var enemy: Enemy = (flyer_scene if use_flyer else walker_scene).instantiate()
@@ -67,7 +75,6 @@ func _spawn() -> void:
 		enemy.set(&"lane", lane)
 		spawn_y = Tiers.lane_y(lane)
 	_add_enemy(enemy, side, Vector2(SPAWN_X[side], spawn_y))
-	_interval = maxf(_interval * SPAWN_INTERVAL_DECAY, SPAWN_INTERVAL_MIN)
 
 func _add_enemy(enemy: Enemy, side: int, pos: Vector2) -> void:
 	enemy.tree_exited.connect(_on_enemy_gone.bind(side))
@@ -80,27 +87,24 @@ func _on_enemy_gone(side: int) -> void:
 
 # ---------- Moon boss ----------
 
-func _on_tier_unlocked(index: int) -> void:
-	if index == Tiers.SURFACE_Y.size() - 1 and not _boss_active and not _boss_pending:
-		_boss_timer = BOSS_DELAY
-
-func _spawn_boss() -> void:
+func start_boss() -> void:
 	if moon_scene == null:
 		return
-	_boss_active = true
 	var moon: Moon = moon_scene.instantiate()
 	moon.spawner = self
 	moon.defeated.connect(boss_defeated.emit)
 	add_child(moon)
 	moon.start_at_corner(randi() % 2)
-	boss_started.emit()
+	boss_started.emit(moon)
 
 # Called by asteroids hitting the ground, ignores MAX_ALIVE
 func spawn_walkers_at(x: float, count: int) -> void:
 	var y := Tiers.stand_center_y(Tiers.GROUND_SURFACE_Y, Tiers.WALKER_HALF_H)
+	# Shift the whole group inward so it fits on screen without stacking at the edge
+	var half := (count - 1) * 0.5 * BOSS_SPAWN_SPREAD
+	var center := clampf(x, BOSS_SPAWN_MIN_X + half, BOSS_SPAWN_MAX_X - half)
 	for i in count:
-		var offset := (i - (count - 1) * 0.5) * BOSS_SPAWN_SPREAD
-		var spawn_x := clampf(x + offset, BOSS_SPAWN_MIN_X, BOSS_SPAWN_MAX_X)
+		var spawn_x := center + (i - (count - 1) * 0.5) * BOSS_SPAWN_SPREAD
 		var side := 0 if spawn_x < Tiers.CENTER_X else 1
 		var walker: Enemy = walker_scene.instantiate()
 		_add_enemy(walker, side, Vector2(spawn_x, y))

@@ -8,95 +8,121 @@
 [ext_resource type="PackedScene" uid="uid://bflcvjcqcytl0" path="res://Scenes/Enemy/flyer.tscn" id="6_flyer"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/hud.tscn" id="7_hud"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/moon.tscn" id="8_moon"]
-[ext_resource type="Texture2D" uid="uid://d3vxkfs0n0ky5" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple.png" id="temple_tex"]
+[ext_resource type="Texture2D" uid="uid://cp4kt6akhsxt3" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple_Sky.png" id="sky_tex"]
+[ext_resource type="Texture2D" uid="uid://cd6hcd53ht7lv" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple_Ground.png" id="ground_tex"]
 [ext_resource type="Texture2D" uid="uid://dibpu11v7pjca" path="res://Assets/Team Godot Asset Folder/Backgrounds/Abe´s Assets.png" id="abe_tex"]
+[ext_resource type="Shader" path="res://Shaders/palette.gdshader" id="palette_shader"]
 [ext_resource type="AudioStream" uid="uid://ey2t1txedgpn" path="res://Assets/Team Godot Asset Folder/Audio/Music/New_Project (1).mp3" id="music_main"]
 [ext_resource type="AudioStream" uid="uid://dsrv3tp0rcvt0" path="res://Assets/Team Godot Asset Folder/Audio/Music/New_Project2.mp3" id="music_boss"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_palette"]
+shader = ExtResource("palette_shader")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
-size = Vector2(448, 20)
+size = Vector2(640, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
-size = Vector2(8, 240)
+size = Vector2(8, 300)
 
 [node name="Main" type="Node2D" unique_id=2003014098]
 script = ExtResource("1_main")
 boss_music = ExtResource("music_boss")
 
+
 [node name="Background" type="Sprite2D" parent="." unique_id=538299392]
-position = Vector2(0, -14)
-texture = ExtResource("temple_tex")
+position = Vector2(-80, 0)
+texture = ExtResource("sky_tex")
 centered = false
+
+
+[node name="Shrine" parent="." unique_id=77188051 instance=ExtResource("3_shrine")]
+
 
 [node name="Decor" type="Node2D" parent="."]
 
+
 [node name="CloudLeft" type="Sprite2D" parent="Decor"]
-position = Vector2(40, 30)
+position = Vector2(118, 44)
 texture = ExtResource("abe_tex")
 centered = false
 region_enabled = true
 region_rect = Rect2(21, 90, 46, 12)
 
+
 [node name="CloudRight" type="Sprite2D" parent="Decor"]
-position = Vector2(252, 24)
+position = Vector2(330, 40)
 texture = ExtResource("abe_tex")
 centered = false
 region_enabled = true
 region_rect = Rect2(4, 114, 31, 8)
 
+
 [node name="Torii" type="Sprite2D" parent="Decor"]
-position = Vector2(8, 85)
+position = Vector2(44, 155)
 texture = ExtResource("abe_tex")
 centered = false
 region_enabled = true
 region_rect = Rect2(2, 2, 70, 75)
 
+
 [node name="LanternLeft" type="Sprite2D" parent="Decor"]
-position = Vector2(84, 123)
+position = Vector2(144, 193)
 texture = ExtResource("abe_tex")
 centered = false
 region_enabled = true
 region_rect = Rect2(89, 40, 18, 37)
+
 
 [node name="LanternRight" type="Sprite2D" parent="Decor"]
-position = Vector2(218, 123)
+position = Vector2(316, 193)
 texture = ExtResource("abe_tex")
 centered = false
 region_enabled = true
 region_rect = Rect2(89, 40, 18, 37)
 
+
 [node name="Tree" type="Sprite2D" parent="Decor"]
-position = Vector2(236, 105)
+position = Vector2(372, 175)
 texture = ExtResource("abe_tex")
 centered = false
 region_enabled = true
 region_rect = Rect2(214, 21, 82, 55)
 
+
 [node name="Ground" type="StaticBody2D" parent="." unique_id=1583839113]
-position = Vector2(160, 160)
+position = Vector2(240, 230)
 collision_mask = 0
+
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=75520690]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_ground")
 
+
+[node name="Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(-320, 0)
+texture = ExtResource("ground_tex")
+centered = false
+
 [node name="LeftWall" type="StaticBody2D" parent="." unique_id=1405379852]
-position = Vector2(-4, 60)
+position = Vector2(-4, 135)
 collision_layer = 16
 collision_mask = 0
+
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1245135475]
 shape = SubResource("RectangleShape2D_wall")
 
+
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=897523410]
-position = Vector2(324, 60)
+position = Vector2(484, 135)
 collision_layer = 16
 collision_mask = 0
+
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=608363856]
 shape = SubResource("RectangleShape2D_wall")
 
-[node name="Shrine" parent="." unique_id=77188051 instance=ExtResource("3_shrine")]
 
 [node name="Spawner" type="Node2D" parent="." unique_id=1608933620]
 script = ExtResource("2_spawner")
@@ -104,12 +130,27 @@ walker_scene = ExtResource("5_walker")
 flyer_scene = ExtResource("6_flyer")
 moon_scene = ExtResource("8_moon")
 
+
 [node name="Player" parent="." unique_id=819642984 instance=ExtResource("4_player")]
-position = Vector2(112, 152)
+position = Vector2(140, 222)
+
 
 [node name="Hud" parent="." unique_id=1557613905 instance=ExtResource("7_hud")]
+
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("music_main")
 volume_db = -6.0
 autoplay = true
+
+[node name="Palette" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Filter" type="ColorRect" parent="Palette"]
+material = SubResource("ShaderMaterial_palette")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

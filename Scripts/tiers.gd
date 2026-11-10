@@ -1,11 +1,11 @@
 class_name Tiers
 extends RefCounted
 
-const CENTER_X := 160.0
-const GROUND_SURFACE_Y := 160.0
+const CENTER_X := 240.0
+const GROUND_SURFACE_Y := 230.0
 
-const SURFACE_Y: Array[float] = [118.0, 76.0]
-const UNLOCK_COST: Array[int] = [5, 15]
+# Temple ledges sit 48 / 94 px above the ground (rows 126 / 80 vs ground row 174 in Temple.png)
+const SURFACE_Y: Array[float] = [GROUND_SURFACE_Y - 48.0, GROUND_SURFACE_Y - 94.0]
 
 const PLAYER_HALF_H := 8.0
 const WALKER_HALF_H := 6.0

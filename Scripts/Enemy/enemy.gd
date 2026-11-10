@@ -1,8 +1,8 @@
 class_name Enemy
 extends CharacterBody2D
 
-const DESPAWN_DISTANCE := 260.0
-const ATTACK_AREA_MARGIN := 2.0  # px the attack area reaches past the body on each side
+const DESPAWN_DISTANCE := 300.0
+const ATTACK_AREA_MARGIN := 2.0  # px the attack area reaches past the body on each sidei have 
 
 @export var speed := 40.0
 @export var attack_damage := 1
@@ -11,7 +11,8 @@ const ATTACK_AREA_MARGIN := 2.0  # px the attack area reaches past the body on e
 
 @onready var health: HealthComponent = $HealthComponent
 # Optional: one child is picked at random as the look, all drawn facing right.
-# A look can carry metadata "hitbox" (Rect2, body space) that the collision is fitted to.
+# A look can carry metadata "hitbox" (Rect2, body space) that the collision is fitted to,
+# and "front_facing" (bool) for art drawn facing the camera, which is never mirrored.
 @onready var visuals: Node2D = get_node_or_null(^"Visuals")
 
 var _sprite: AnimatedSprite2D
@@ -75,7 +76,7 @@ func _set_box(cs: CollisionShape2D, rect: Rect2) -> void:
 
 # Keeps the last direction while standing still
 func _update_facing() -> void:
-	if visuals != null and velocity.x != 0.0:
+	if visuals != null and velocity.x != 0.0 and not _sprite.get_meta(&"front_facing", false):
 		visuals.scale.x = signf(velocity.x)
 
 # Plays anim only if the picked variant has it

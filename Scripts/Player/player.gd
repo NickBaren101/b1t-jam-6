@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const WALK_SPEED := 70.0
+const WALK_SPEED := 85.0
 @export_group("Shooting")
-@export var shoot_cooldown := 1.5     # base cooldown (s) while the shot has not hit anything
+@export var shoot_cooldown := 0.75    # base cooldown (s) while the shot has not hit anything
 @export var hit_cooldown := 0.1      # base cooldown (s) once a ground shot hits an enemy
 @export var count_hit_cooldown_from_shot := true  # false = the hit cooldown starts at the moment of the hit
 @export var hold_to_fire := false      # false = one press per shot
@@ -23,6 +23,7 @@ const PLATFORM_MASK_BIT := 5
 @export var bullet_scene: PackedScene
 
 var facing := 1
+var controls_enabled := true  # off while the shrine rises; gravity and landing still run
 
 var _gravity := 0.0
 var _jump_speed := 0.0
@@ -43,7 +44,7 @@ var _shot_id := 0
 @onready var _shape_node: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
-	var rise := Tiers.GROUND_SURFACE_Y - Tiers.SURFACE_Y[0]  # 42 px between platform levels
+	var rise := Tiers.GROUND_SURFACE_Y - Tiers.SURFACE_Y[0]  # 48 px from ground to tier 1 (46 from tier 1 to tier 2)
 	var height := rise + OVERSHOOT
 	_gravity = 2.0 * height / (APEX_TIME * APEX_TIME)
 	_jump_speed = 2.0 * height / APEX_TIME
@@ -67,14 +68,14 @@ func _tick_timers(delta: float) -> void:
 
 func _motion(delta: float) -> void:
 	var max_speed := WALK_SPEED * Favour.speed_mult()
-	var dir := Input.get_axis(&"move_left", &"move_right")
+	var dir := Input.get_axis(&"move_left", &"move_right") if controls_enabled else 0.0
 
 	if is_on_floor():
 		velocity.x = dir * max_speed
-		if Input.is_action_just_pressed(&"move_up"):
+		if controls_enabled and Input.is_action_just_pressed(&"move_up"):
 			velocity.y = -_jump_speed
 			Sfx.play(&"jump")
-		elif Input.is_action_just_pressed(&"move_down") and _standing_on_platform():
+		elif controls_enabled and Input.is_action_just_pressed(&"move_down") and _standing_on_platform():
 			_begin_drop()
 			Sfx.play(&"drop")
 	else:
@@ -84,7 +85,7 @@ func _motion(delta: float) -> void:
 
 	var wants_fire := Input.is_action_pressed(&"shoot") if hold_to_fire \
 			else Input.is_action_just_pressed(&"shoot")
-	if wants_fire and _shoot_timer <= 0.0 and _can_shoot():
+	if controls_enabled and wants_fire and _shoot_timer <= 0.0 and _can_shoot():
 		_fire()
 
 # ---------- Dropping through platforms ----------

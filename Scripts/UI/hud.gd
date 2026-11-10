@@ -1,11 +1,15 @@
 extends CanvasLayer
 
 var _ended := false
+var _wave_text := ""
 
 @onready var shrine_label: Label = $ShrineLabel
 @onready var player_label: Label = $PlayerLabel
 @onready var favour_label: Label = $FavourLabel
 @onready var message_label: Label = $MessageLabel
+@onready var moon_bar: Control = $MoonBar
+@onready var moon_fill: ColorRect = $MoonBar/Fill
+@onready var _moon_fill_width := moon_fill.size.x
 
 func _ready() -> void:
 	Favour.favour_changed.connect(_on_favour_changed)
@@ -32,5 +36,18 @@ func show_run_end(message: String) -> void:
 	message_label.visible = true
 	get_tree().paused = true
 
+func show_moon_bar(moon_health: HealthComponent) -> void:
+	moon_health.health_changed.connect(_set_moon_health)
+	_set_moon_health(moon_health.current_health, moon_health.max_health)
+	moon_bar.visible = true
+
+func _set_moon_health(current: int, maximum: int) -> void:
+	moon_fill.size.x = roundf(_moon_fill_width * current / maximum)
+	moon_fill.visible = current > 0
+
+func set_wave(text: String) -> void:
+	_wave_text = text
+	_on_favour_changed(Favour.favour)
+
 func _on_favour_changed(value: int) -> void:
-	favour_label.text = "FAVOUR %d   TIERS %d" % [value, Favour.unlocked_tiers]
+	favour_label.text = "FAVOUR %d   %s" % [value, _wave_text]

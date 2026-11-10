@@ -3,7 +3,7 @@ extends Area2D
 signal hit_enemy
 
 const SPEED := 220.0
-const LIFETIME := 1.0
+const LIFETIME := 1.3  # ~286 px of range
 
 var direction := Vector2.RIGHT
 var damage := 1

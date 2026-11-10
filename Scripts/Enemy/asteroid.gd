@@ -12,6 +12,17 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)  # mask includes Bullets
 
 
+# Leaving the screen sideways counts as landing on that edge, so its walkers appear there
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	if is_queued_for_deletion():
+		return
+	var screen := get_viewport_rect()
+	if global_position.x < screen.position.x or global_position.x > screen.end.x:
+		landed.emit(clampf(global_position.x, screen.position.x, screen.end.x))
+		queue_free()
+
+
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(&"player"):
 		if body.has_method("knock_down"):

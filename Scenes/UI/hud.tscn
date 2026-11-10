@@ -23,9 +23,9 @@ theme_override_font_sizes/font_size = 8
 text = "JINSHA"
 
 [node name="FavourLabel" type="Label" parent="."]
-offset_left = 160.0
+offset_left = 240.0
 offset_top = 2.0
-offset_right = 316.0
+offset_right = 476.0
 offset_bottom = 14.0
 theme_override_font_sizes/font_size = 8
 text = "FAVOUR"
@@ -33,9 +33,49 @@ horizontal_alignment = 2
 
 [node name="MessageLabel" type="Label" parent="."]
 visible = false
-offset_left = 40.0
-offset_top = 78.0
-offset_right = 280.0
-offset_bottom = 110.0
+offset_left = 120.0
+offset_top = 118.0
+offset_right = 360.0
+offset_bottom = 150.0
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
+
+[node name="MoonBar" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 118.0
+offset_top = 252.0
+offset_right = 362.0
+offset_bottom = 264.0
+
+[node name="Back" type="ColorRect" parent="MoonBar"]
+layout_mode = 0
+offset_right = 244.0
+offset_bottom = 12.0
+color = Color(0, 0.0078, 0.0627, 1)
+
+[node name="Frame" type="ColorRect" parent="MoonBar"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 242.0
+offset_bottom = 10.0
+color = Color(0.5216, 0.1451, 0.1608, 1)
+
+[node name="Gap" type="ColorRect" parent="MoonBar"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 241.0
+offset_bottom = 9.0
+color = Color(0, 0.0078, 0.0627, 1)
+
+[node name="Fill" type="ColorRect" parent="MoonBar"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 240.0
+offset_bottom = 8.0
+color = Color(0.5216, 0.1451, 0.1608, 1)
+

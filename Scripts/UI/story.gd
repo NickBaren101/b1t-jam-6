@@ -7,9 +7,11 @@ const END_HOLD := 2.5     # s the full text stays up before the game starts
 
 # Edit the lore here or in the inspector; each entry types out as its own line
 @export_multiline var lines: Array[String] = [
-	"Once in a hundred years, the Blood Moon wakes above the mountain shrine.",
-	"Its light drags the dead from their graves: jiangshi and ghouls that walk, bats and spirits that fly.",
-	"Only Jinsha, last guardian of the shrine, stands between them and the temple.",
+	"He wakes in a strange place, remembering nothing but the name carved on a worn wooden tag: Jinsha.",
+	"His torn silk robes still shimmer with gold, the only trace of a past he cannot recall.",
+	"Behind him stands an ancient shrine. Perhaps it holds the answers he seeks.",
+	"By its entrance lies an old katana, more relic than weapon, but enough to survive.",
+	"A roar splits the silence. Not a samurai, but the dead. Jinsha draws the blade.",
 ]
 
 var _leaving := false

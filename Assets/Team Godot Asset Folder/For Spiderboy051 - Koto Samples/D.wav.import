@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bl01rs86ybee4"
+path="res://.godot/imported/D.wav-aa0a5c98336c98118abd708cf78e5949.sample"
+
+[deps]
+
+source_file="res://Assets/Team Godot Asset Folder/For Spiderboy051 - Koto Samples/D.wav"
+dest_files=["res://.godot/imported/D.wav-aa0a5c98336c98118abd708cf78e5949.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

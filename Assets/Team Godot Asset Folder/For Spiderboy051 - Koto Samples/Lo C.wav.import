@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://tkkcegvjrnyh"
+path="res://.godot/imported/Lo C.wav-9535d3a7da93c190bc4f7bbd76a03961.sample"
+
+[deps]
+
+source_file="res://Assets/Team Godot Asset Folder/For Spiderboy051 - Koto Samples/Lo C.wav"
+dest_files=["res://.godot/imported/Lo C.wav-9535d3a7da93c190bc4f7bbd76a03961.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

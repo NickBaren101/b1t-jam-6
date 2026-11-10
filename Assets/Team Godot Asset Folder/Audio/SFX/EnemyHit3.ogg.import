@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b7ktt3m3h5hm0"
+path="res://.godot/imported/EnemyHit3.ogg-3b4b761b6a739b47ae95104db39ce987.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Team Godot Asset Folder/Audio/SFX/EnemyHit3.ogg"
+dest_files=["res://.godot/imported/EnemyHit3.ogg-3b4b761b6a739b47ae95104db39ce987.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

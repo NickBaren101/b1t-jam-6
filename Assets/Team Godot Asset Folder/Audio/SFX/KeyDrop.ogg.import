@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://h6sv31c8erhb"
+path="res://.godot/imported/KeyDrop.ogg-34bf037eb75589e7d94ea4cf914f45c0.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Team Godot Asset Folder/Audio/SFX/KeyDrop.ogg"
+dest_files=["res://.godot/imported/KeyDrop.ogg-34bf037eb75589e7d94ea4cf914f45c0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

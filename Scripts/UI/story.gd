@@ -10,7 +10,6 @@ const END_HOLD := 2.5     # s the full text stays up before the game starts
 	"Once in a hundred years, the Blood Moon wakes above the mountain shrine.",
 	"Its light drags the dead from their graves: jiangshi and ghouls that walk, bats and spirits that fly.",
 	"Only Jinsha, last guardian of the shrine, stands between them and the temple.",
-	"Drive back each wave of the dead and the temple will rise from the earth. When it stands whole, strike down the Moon itself.",
 ]
 
 var _leaving := false

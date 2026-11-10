@@ -52,5 +52,7 @@ draw_placeholder = false
 shape = SubResource("CircleShape2D_ffu00")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=964753134]
+scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_ghost_shot")
 autoplay = "default"
+offset = Vector2(1, -2)

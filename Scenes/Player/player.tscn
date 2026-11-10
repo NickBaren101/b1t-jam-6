@@ -118,7 +118,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(8, 16)
+size = Vector2(16, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_probe"]
 size = Vector2(7, 14)
@@ -143,6 +143,7 @@ position = Vector2(19, -2)
 sprite_frames = SubResource("SpriteFrames_smear")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=78935379]
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_body")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=787516532]

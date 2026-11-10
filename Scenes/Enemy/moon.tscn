@@ -1,9 +1,8 @@
-[gd_scene format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/moon.gd" id="1_moon"]
 [ext_resource type="Script" uid="uid://dp18rdf3lsp7q" path="res://Scripts/Components/health_component.gd" id="2_health"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/asteroid.tscn" id="3_asteroid"]
-[ext_resource type="Texture2D" uid="uid://b5rcn6w30023i" path="res://Assets/Team Godot Asset Folder/Backgrounds/Honey´s Assets.png" id="honey_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_moon"]
 radius = 40.0
@@ -13,11 +12,6 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_moon")
 asteroid_scene = ExtResource("3_asteroid")
-
-[node name="Visual" type="Sprite2D" parent="."]
-texture = ExtResource("honey_tex")
-region_enabled = true
-region_rect = Rect2(6, 19, 40, 40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_moon")

@@ -153,8 +153,8 @@ attack_area = NodePath("ContactHitbox")
 [node name="Bat" type="AnimatedSprite2D" parent="Visuals"]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_bat")
+flip_h = true
 metadata/hitbox = Rect2(-12, -14, 24, 28)
-metadata/front_facing = true
 
 [node name="Skeleton" type="AnimatedSprite2D" parent="Visuals"]
 position = Vector2(-0.5, 0.5)

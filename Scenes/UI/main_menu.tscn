@@ -1,0 +1,92 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/UI/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://cp4kt6akhsxt3" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple_Sky.png" id="2_sky"]
+[ext_resource type="Texture2D" uid="uid://bcamtmftl7ram" path="res://Assets/Team Godot Asset Folder/Backgrounds/Only_Temple.png" id="3_temple"]
+[ext_resource type="Texture2D" uid="uid://cd6hcd53ht7lv" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple_Ground.png" id="4_ground"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_idle"]
+bg_color = Color(0, 0.0078, 0.0627, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5216, 0.1451, 0.1608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_active"]
+bg_color = Color(0.5216, 0.1451, 0.1608, 1)
+
+[sub_resource type="Theme" id="Theme_menu"]
+default_font_size = 10
+Button/colors/font_color = Color(0.5216, 0.1451, 0.1608, 1)
+Button/colors/font_focus_color = Color(0, 0.0078, 0.0627, 1)
+Button/colors/font_hover_color = Color(0, 0.0078, 0.0627, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0.0078, 0.0627, 1)
+Button/colors/font_pressed_color = Color(0, 0.0078, 0.0627, 1)
+Button/styles/focus = SubResource("StyleBox_active")
+Button/styles/hover = SubResource("StyleBox_active")
+Button/styles/normal = SubResource("StyleBox_idle")
+Button/styles/pressed = SubResource("StyleBox_active")
+Label/colors/font_color = Color(0.5216, 0.1451, 0.1608, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_menu")
+script = ExtResource("1_menu")
+
+[node name="Sky" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -80.0
+offset_right = 560.0
+offset_bottom = 230.0
+texture = ExtResource("2_sky")
+
+[node name="Temple" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 84.0
+offset_right = 302.0
+offset_bottom = 230.0
+texture = ExtResource("3_temple")
+
+[node name="Ground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -80.0
+offset_top = 230.0
+offset_right = 560.0
+offset_bottom = 298.0
+texture = ExtResource("4_ground")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 480.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 18
+text = "JINSHA"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 42.0
+offset_right = 290.0
+offset_bottom = 80.0
+theme_override_constants/separation = 4
+
+[node name="NewGame" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "NEW GAME"
+
+[node name="ExitGame" type="Button" parent="Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+text = "EXIT GAME"

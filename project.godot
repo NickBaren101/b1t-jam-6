@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="b1t-jam-6"
-run/main_scene="res://Scenes/Main/main.tscn"
+run/main_scene="res://Scenes/UI/main_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Favour="*res://Scripts/Autoload/favour.gd"
 Sfx="*res://Scripts/Autoload/sfx.gd"
+Palette="*res://Scenes/UI/palette.tscn"
 
 [display]
 

@@ -7,16 +7,13 @@
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/walker.tscn" id="5_walker"]
 [ext_resource type="PackedScene" uid="uid://bflcvjcqcytl0" path="res://Scenes/Enemy/flyer.tscn" id="6_flyer"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/tutorial.tscn" id="9_tutorial"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemy/moon.tscn" id="8_moon"]
 [ext_resource type="Texture2D" uid="uid://cp4kt6akhsxt3" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple_Sky.png" id="sky_tex"]
 [ext_resource type="Texture2D" uid="uid://cd6hcd53ht7lv" path="res://Assets/Team Godot Asset Folder/Backgrounds/Temple_Ground.png" id="ground_tex"]
 [ext_resource type="Texture2D" uid="uid://dibpu11v7pjca" path="res://Assets/Team Godot Asset Folder/Backgrounds/Abe´s Assets.png" id="abe_tex"]
-[ext_resource type="Shader" path="res://Shaders/palette.gdshader" id="palette_shader"]
 [ext_resource type="AudioStream" uid="uid://ey2t1txedgpn" path="res://Assets/Team Godot Asset Folder/Audio/Music/New_Project (1).mp3" id="music_main"]
 [ext_resource type="AudioStream" uid="uid://dsrv3tp0rcvt0" path="res://Assets/Team Godot Asset Folder/Audio/Music/New_Project2.mp3" id="music_boss"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_palette"]
-shader = ExtResource("palette_shader")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(640, 20)
@@ -139,18 +136,9 @@ position = Vector2(140, 222)
 
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("music_main")
 volume_db = -6.0
 autoplay = true
 
-[node name="Palette" type="CanvasLayer" parent="."]
-layer = 100
-
-[node name="Filter" type="ColorRect" parent="Palette"]
-material = SubResource("ShaderMaterial_palette")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="Tutorial" parent="." instance=ExtResource("9_tutorial")]

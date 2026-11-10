@@ -3,7 +3,7 @@ extends Enemy
 
 const STOP_FRACTION := 0.6       # front of the queue stops 60% of the way to the shrine
 const QUEUE_GAP := 10.0          # extra px between queued flyers
-const MAX_QUEUE := 3             # max flyers per side and lane (see spawner)
+const MAX_QUEUE := 2             # max flyers per side and lane (see spawner)
 const ARRIVE_EPSILON := 0.5
 const FIRST_SHOT_DELAY := 0.6    # pause after arriving before the first shot
 const SHOOT_INTERVAL := 1.8
